@@ -1,1 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Arcade: Find Your Next Adventure</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- General Styles & Reset --- */
+        :root {
+            --primary-color: #8c00ff;
+            --primary-light: #a64dff;
+            --accent-color: #00ff8c;
+            --dark-background: #1a0033;
+            --medium-background: #2b004d;
+            --text-color: #f0f0f0;
+            --card-background: #3c0066;
+            --font-main: 'Roboto', sans-serif;
+            --font-heading: 'Orbitron', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            margin: 0;
+            background-color: var(--dark-background);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- Header & Navigation --- */
+        .header {
+            background-color: var(--medium-background);
+            padding: 1rem 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            text-shadow: 0 0 5px var(--accent-color);
+            margin-left: 2rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            margin-right: 2rem;
+        }
+
+        .nav-menu li {
+            margin-left: 2.5rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-light);
+            text-shadow: 0 0 5px var(--primary-light);
+        }
+
+        /* --- Games Section & Filtering --- */
+        .games-section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 0 0 5px var(--primary-color);
+        }
+
+        .filter-buttons {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-btn {
+            background: none;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            background-color: var(--card-background);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content h3 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            margin: 0 0 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .card-content p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background-color: var(--dark-background);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 2px solid var(--primary-color);
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            .header {
+                flex-direction: column;
+            }
+            .logo {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- --- HTML Structure --- -->
+    <header class="header">
+        <a href="index.html" class="logo">Your Portal</a>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#" class="active">Game Arcade</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="games" class="games-section">
+            <div class="container">
+                <h2 class="section-title">Featured Games</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="rpg">RPG</button>
+                    <button class="filter-btn" data-filter="shooter">Shooter</button>
+                    <button class="filter-btn" data-filter="puzzle">Puzzle</button>
+                </div>
+                <div class="games-grid">
+                    <div class="game-card" data-category="rpg">
+                        <img src="https://placehold.co/600x400/8c00ff/00ff8c?text=Fantasy+Quest" alt="Game Thumbnail">
+                        <div class="card-content">
+                            <h3>Fantasy Quest</h3>
+                            <p>An epic RPG where you explore a magical world and defeat powerful dragons. The adventure never ends!</p>
+                        </div>
+                    </div>
+                    <div class="game-card" data-category="shooter">
+                        <img src="https://placehold.co/600x400/00ff8c/1a0033?text=Galactic+Assault" alt="Game Thumbnail">
+                        <div class="card-content">
+                            <h3>Galactic Assault</h3>
+                            <p>A fast-paced space shooter. Dodge asteroids and blast enemy ships in this high-octane action game.</p>
+                        </div>
+                    </div>
+                    <div class="game-card" data-category="puzzle">
+                        <img src="https://placehold.co/600x400/8c00ff/00ff8c?text=Logic+Labyrinth" alt="Game Thumbnail">
+                        <div class="card-content">
+                            <h3>Logic Labyrinth</h3>
+                            <p>A mind-bending puzzle game that will test your problem-solving skills with intricate puzzles.</p>
+                        </div>
+                    </div>
+                    <div class="game-card" data-category="rpg">
+                        <img src="https://placehold.co/600x400/00ff8c/1a0033?text=Mystic+Chronicles" alt="Game Thumbnail">
+                        <div class="card-content">
+                            <h3>Mystic Chronicles</h3>
+                            <p>Delve into an ancient story of myth and magic in this immersive role-playing experience.</p>
+                        </div>
+                    </div>
+                    <div class="game-card" data-category="puzzle">
+                        <img src="https://placehold.co/600x400/8c00ff/00ff8c?text=Hex+Crush" alt="Game Thumbnail">
+                        <div class="card-content">
+                            <h3>Hex Crush</h3>
+                            <p>A modern twist on a classic match-3 game, with unique hexagonal pieces and explosive power-ups.</p>
+                        </div>
+                    </div>
+                    <div class="game-card" data-category="shooter">
+                        <img src="https://placehold.co/600x400/00ff8c/1a0033?text=Robo+Rampage" alt="Game Thumbnail">
+                        <div class="card-content">
+                            <h3>Robo Rampage</h3>
+                            <p> Blank</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; Blank</p>
+    </footer>
+
+    <!-- --- JavaScript for Filtering Games --- -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const gamesGrid = document.querySelector('.games-grid');
+            const gameCards = document.querySelectorAll('.game-card');
+            
+            // Function to handle filtering games
+            const filterGames = (category) => {
+                gameCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (category === 'all' || cardCategory === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            };
+
+            // Event listener for filter buttons
+            filterButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    // Remove 'active' class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add 'active' class to the clicked button
+                    event.target.classList.add('active');
+                    
+                    const filter = event.target.getAttribute('data-filter');
+                    filterGames(filter);
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
 
